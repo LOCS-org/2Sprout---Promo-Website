@@ -1,0 +1,1144 @@
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2Sprout – Diplomarbeit HTL Rennweg</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --main: #166534;
+        --text: #000000;
+        --subtext: #262626;
+        --bg: #ffffff;
+        --bg-alt: #f6f7f4;
+        --formA: #bef264;
+        --formB: #769e61;
+        --field: #e7e5e4;
+        --disabled: #737373;
+        --card-bg: #ffffff;
+        --card-text: #000000;
+        --shadow: 0 12px 28px rgba(20, 50, 25, 0.1);
+      }
+
+      html[data-theme="dark"] {
+        --main: #769e61;
+        --text: #ffffff;
+        --subtext: #e7e5e4;
+        --bg: #262626;
+        --bg-alt: #1d1d1d;
+        --formA: #bef264;
+        --formB: #d9f99d;
+        --field: #f5f5f5;
+        --disabled: #737373;
+        --card-bg: #1a1a1a;
+        --card-text: #ffffff;
+        --shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--text);
+        font-family: "Inter", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        transition:
+          background 0.25s ease,
+          color 0.25s ease;
+      }
+
+      h1,
+      h2,
+      h3 {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        margin: 0;
+      }
+
+      a {
+        color: inherit;
+      }
+      button {
+        font-family: inherit;
+      }
+
+      .wrap {
+        max-width: 1120px;
+        margin: 0 auto;
+        padding: 0 28px;
+      }
+
+      /* ================= BLOB BACKGROUND ================= */
+
+      .blob-layer {
+        position: absolute;
+        inset: 0;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .blob-layer svg {
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+
+      /* ================= HEADER ================= */
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        background: var(--bg);
+        border-bottom: 1px solid var(--field);
+      }
+      .headbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 0;
+        gap: 20px;
+      }
+      .head-left {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .burger {
+        width: 38px;
+        height: 38px;
+        border-radius: 10px;
+        border: 1px solid var(--field);
+        background: transparent;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .burger svg {
+        width: 18px;
+        height: 18px;
+        stroke: var(--text);
+      }
+
+      .logo {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        text-decoration: none;
+      }
+      .logo-leaf {
+        width: 20px;
+        height: 20px;
+      }
+      .logo-word {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-size: 19px;
+        color: var(--text);
+      }
+
+      nav {
+        display: flex;
+        align-items: center;
+        gap: 30px;
+      }
+      nav a {
+        text-decoration: none;
+        font-size: 14.5px;
+        font-weight: 500;
+        color: var(--text);
+        padding: 6px 0;
+        border-bottom: 2px solid transparent;
+      }
+      nav a:hover {
+        border-bottom-color: var(--main);
+      }
+
+      .head-right {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .icon-circle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--bg);
+        border: 1px solid var(--field);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        flex-shrink: 0;
+      }
+      .icon-circle svg {
+        width: 16px;
+        height: 16px;
+        stroke: var(--text);
+      }
+      html[data-theme="dark"] .icon-circle {
+        background: var(--card-bg);
+      }
+      html[data-theme="dark"] .icon-circle svg {
+        stroke: #fff;
+      }
+
+      .icon-circle:focus-visible,
+      a:focus-visible,
+      button:focus-visible {
+        outline: 2px solid var(--main);
+        outline-offset: 2px;
+      }
+
+      .mobile-nav {
+        display: none;
+        flex-direction: column;
+        padding: 6px 0 16px;
+        gap: 4px;
+      }
+      .mobile-nav a {
+        text-decoration: none;
+        color: var(--text);
+        font-size: 15px;
+        font-weight: 500;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--field);
+      }
+      body.nav-open .mobile-nav {
+        display: flex;
+      }
+      body.nav-open nav {
+        display: none;
+      }
+
+      /* ================= HERO ================= */
+
+      .hero {
+        position: relative;
+        padding: 88px 0 96px;
+        color: #fff;
+        overflow: hidden;
+      }
+      .hero-inner {
+        position: relative;
+        z-index: 1;
+        display: grid;
+        grid-template-columns: 1.05fr 0.9fr;
+        gap: 48px;
+        align-items: center;
+      }
+      .artikel {
+        padding-left: 2rem;
+        padding-right: 2rem;
+        padding-top: 1.5rem;
+        padding-bottom: 1rem;
+        border-radius: 16px;
+        background: rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .eyebrow-pill {
+        display: inline-block;
+        background: rgba(255, 255, 255, 0.18);
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        color: #fff;
+        font-size: 13px;
+        font-weight: 500;
+        padding: 6px 14px;
+        border-radius: 999px;
+        margin-bottom: 20px;
+      }
+      .hero h1 {
+        font-size: 42px;
+        line-height: 1.14;
+        color: #fff;
+      }
+      .hero p.lede {
+        font-size: 16.5px;
+        line-height: 1.65;
+        color: rgba(255, 255, 255, 0.92);
+        max-width: 46ch;
+        margin-top: 18px;
+      }
+      .hero-cta {
+        display: flex;
+        gap: 14px;
+        margin-top: 32px;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 22px;
+        border-radius: 999px;
+        font-size: 14.5px;
+        font-weight: 600;
+        text-decoration: none;
+        cursor: pointer;
+        border: 1.5px solid transparent;
+      }
+      .btn-white {
+        background: #fff;
+        color: var(--main);
+      }
+      .btn-white:hover {
+        opacity: 0.92;
+      }
+      .btn-outline {
+        background: transparent;
+        border-color: rgba(255, 255, 255, 0.7);
+        color: #fff;
+      }
+      .btn-outline:hover {
+        background: rgba(255, 255, 255, 0.12);
+      }
+      .btn-solid {
+        background: var(--main);
+        color: #fff;
+      }
+      html[data-theme="dark"] .btn-solid {
+        color: #111;
+      }
+      .btn-solid:hover {
+        opacity: 0.9;
+      }
+
+      /* listing card */
+      .listing {
+        background: var(--card-bg);
+        color: var(--card-text);
+        border-radius: 22px;
+        padding: 16px;
+        box-shadow: var(--shadow);
+        max-width: 320px;
+        margin-left: auto;
+      }
+      .listing-photo {
+        height: 190px;
+        border-radius: 16px;
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(135deg, var(--formB) 0%, var(--main) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .listing-photo svg {
+        width: 72px;
+        height: 72px;
+        opacity: 0.95;
+      }
+      .listing-heart {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+        width: 32px;
+        height: 32px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.9);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .listing-heart svg {
+        width: 15px;
+        height: 15px;
+        stroke: var(--main);
+        fill: none;
+      }
+      .listing-body {
+        padding: 14px 4px 4px;
+      }
+      .listing-title {
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+        font-size: 15.5px;
+      }
+      .listing-meta {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 8px;
+      }
+      .listing-meta .cond {
+        font-size: 12.5px;
+        color: var(--subtext);
+      }
+      .listing-price {
+        color: var(--main);
+        font-weight: 700;
+        font-size: 16px;
+        font-family: "Poppins", sans-serif;
+
+      }
+
+      /* ================= SECTIONS ================= */
+
+      section {
+        padding: 72px 0;
+      }
+      section.alt {
+        background: var(--bg-alt);
+      }
+      .section-head {
+        margin-bottom: 38px;
+        max-width: 60ch;
+      }
+      .section-head h2 {
+        font-size: 27px;
+      }
+      .section-head p {
+        color: var(--subtext);
+        font-size: 15.5px;
+        line-height: 1.6;
+        margin-top: 10px;
+      }
+
+      /* ---- idea ---- */
+      .idea-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 52px;
+        align-items: start;
+      }
+      .idea-col h3 {
+        font-size: 15px;
+        color: var(--main);
+        margin-bottom: 10px;
+      }
+      .idea-col p {
+        font-size: 15px;
+        line-height: 1.75;
+        color: var(--text);
+      }
+
+      .why-list {
+        margin-top: 44px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 16px;
+      }
+      .why-item {
+        display: flex;
+        align-items: flex-start;
+        gap: 12px;
+        background: var(--card-bg);
+        border: 1px solid var(--field);
+        border-radius: 16px;
+        padding: 18px;
+      }
+      .radio-dot {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 2px solid var(--main);
+        flex-shrink: 0;
+        margin-top: 2px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .radio-dot::after {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--main);
+      }
+      .why-item p {
+        font-size: 13.5px;
+        line-height: 1.5;
+        color: var(--subtext);
+        margin: 0;
+      }
+      .why-item strong {
+        display: block;
+        font-size: 14.5px;
+        color: var(--text);
+        margin-bottom: 3px;
+        font-family: "Poppins", sans-serif;
+        font-weight: 600;
+      }
+
+      /* ---- goals ---- */
+      .goal-group {
+        margin-bottom: 34px;
+      }
+      .goal-group:last-child {
+        margin-bottom: 0;
+      }
+      .goal-label {
+        font-size: 13.5px;
+        font-weight: 600;
+        color: var(--subtext);
+        margin-bottom: 14px;
+      }
+      .box-grid {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+      }
+      .box-chip {
+        font-size: 13.5px;
+        font-weight: 500;
+        padding: 10px 16px;
+        border-radius: 10px;
+        border: 1.5px solid var(--field);
+        color: var(--subtext);
+        background: transparent;
+      }
+      .box-chip.active {
+        border-color: var(--main);
+        color: var(--main);
+        background: rgba(22, 101, 52, 0.06);
+      }
+      html[data-theme="dark"] .box-chip.active {
+        background: rgba(118, 158, 97, 0.12);
+      }
+
+      /* ---- team ---- */
+      .team-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+      .team-card {
+        background: var(--card-bg);
+        border-radius: 20px;
+        padding: 20px;
+        box-shadow: var(--shadow);
+      }
+      .team-top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+      .avatar {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        background: linear-gradient(135deg, var(--formA) 0%, var(--formB) 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: "Poppins", sans-serif;
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--main);
+        flex-shrink: 0;
+      }
+      .team-name {
+        font-size: 16px;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+        color: var(--card-text);
+      }
+      .team-role {
+        font-size: 12.5px;
+        color: var(--main);
+        margin-top: 2px;
+        font-weight: 500;
+      }
+      .team-focus {
+        font-size: 14px;
+        line-height: 1.6;
+        color: var(--subtext);
+        margin-top: 16px;
+      }
+      .team-tasks {
+        margin-top: 14px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .team-tasks span {
+        font-size: 11.5px;
+        color: var(--main);
+        background: rgba(22, 101, 52, 0.08);
+        padding: 4px 10px;
+        border-radius: 8px;
+        font-weight: 500;
+      }
+      html[data-theme="dark"] .team-tasks span {
+        background: rgba(118, 158, 97, 0.15);
+      }
+      .team-mail {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        margin-top: 16px;
+        font-size: 13.5px;
+        font-weight: 600;
+        text-decoration: none;
+        color: var(--main);
+        border-top: 1px solid var(--field);
+        padding-top: 14px;
+        width: 100%;
+      }
+      .team-mail svg {
+        width: 14px;
+        height: 14px;
+        stroke: var(--main);
+      }
+
+      /* ---- contact (blob card) ---- */
+      .contact {
+        position: relative;
+        padding: 0;
+      }
+      .contact-card {
+        position: relative;
+        overflow: hidden;
+        border-radius: 28px;
+        padding: 56px 44px;
+        color: #fff;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .contact-inner {
+        position: relative;
+        z-index: 1;
+        max-width: 46ch;
+      }
+      .contact-card h2 {
+        color: #fff;
+        font-size: 26px;
+      }
+      .contact-card p {
+        color: rgba(255, 255, 255, 0.9);
+        margin-top: 10px;
+        font-size: 15px;
+        line-height: 1.6;
+      }
+      .contact-card .btn {
+        margin-top: 26px;
+      }
+
+      /* ================= FOOTER ================= */
+
+      footer {
+        padding: 30px 0 44px;
+        border-top: 1px solid var(--field);
+        margin-top: 16px;
+      }
+      .foot-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 12px;
+        font-size: 13px;
+        color: var(--subtext);
+      }
+
+      /* ================= RESPONSIVE ================= */
+
+      @media (max-width: 840px) {
+        nav {
+          display: none;
+        }
+        .hero-inner {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+        .hero h1 {
+          font-size: 33px;
+        }
+        .listing {
+          margin-left: 0;
+          max-width: 280px;
+        }
+        .idea-grid {
+          grid-template-columns: 1fr;
+          gap: 30px;
+        }
+        .why-list {
+          grid-template-columns: 1fr;
+        }
+        .team-grid {
+          grid-template-columns: 1fr;
+        }
+        .contact-card {
+          padding: 44px 26px;
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        html {
+          scroll-behavior: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- reusable blob SVG background -->
+    <template id="blobSvg">
+      <svg
+        viewBox="0 0 1000 560"
+        preserveAspectRatio="xMidYMid slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="1000" height="560" fill="#14532d" />
+        <circle cx="90" cy="70" r="250" fill="#BEF264" />
+        <circle cx="900" cy="40" r="280" fill="#166534" />
+        <polygon
+          points="520,-60 1080,180 760,640 380,300"
+          fill="#769E61"
+          opacity="0.9"
+        />
+        <circle cx="110" cy="560" r="230" fill="#0f3d24" />
+        <circle cx="890" cy="560" r="260" fill="#D9F99D" opacity="0.9" />
+        <circle cx="520" cy="520" r="150" fill="#4d7c4a" opacity="0.55" />
+      </svg>
+    </template>
+
+    <header>
+      <div class="wrap headbar">
+        <div class="head-left">
+          <button
+            class="burger"
+            id="burgerBtn"
+            aria-label="Menü öffnen"
+            aria-expanded="false"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="2"
+              stroke-linecap="round"
+            >
+              <path d="M3 6h18M3 12h18M3 18h18" />
+            </svg>
+          </button>
+          <a class="logo" href="#top">
+            <img src="logo.jpg" alt="logo" width="40rem" />
+            <span class="logo-word">Sprout</span>
+          </a>
+        </div>
+
+        <nav>
+          <a href="#idee">Die Idee</a>
+          <a href="#ziele">Ziele</a>
+          <a href="#team">Team</a>
+          <a href="#kontakt">Kontakt</a>
+        </nav>
+
+        <div class="head-right">
+          <button
+            class="icon-circle"
+            id="themeToggle"
+            aria-label="Farbmodus wechseln"
+            title="Farbmodus wechseln"
+          >
+            <svg
+              id="themeIcon"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            ></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="wrap mobile-nav" id="mobileNav">
+        <a href="#idee">Die Idee</a>
+        <a href="#ziele">Ziele</a>
+        <a href="#team">Team</a>
+        <a href="#kontakt">Kontakt</a>
+      </div>
+    </header>
+
+    <main id="top">
+      <!-- HERO -->
+      <section class="hero" id="heroSection">
+        <div class="blob-layer" id="heroBlob"></div>
+        <div class="wrap hero-inner">
+          <div class="artikel">
+            <span class="eyebrow-pill">Diplomarbeit &middot; HTL Rennweg</span>
+            <h1>
+              Werkstättenjacken, Taschenrechner &amp; Co. bekommen eine zweite
+              Runde.
+            </h1>
+            <p class="lede">
+              2Sprout ist die Weitergabeplattform für die HTL Rennweg:
+              Gegenstände, die noch funktionstüchtig sind, aber niemand mehr
+              braucht, finden bei uns neue Besitzer:innen &mdash; einfach,
+              schnell und innerhalb der Schulgemeinschaft.
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-white" href="#ziele">Projektziele ansehen</a>
+              <a class="btn btn-outline" href="#team">Team kennenlernen</a>
+            </div>
+          </div>
+
+          <div class="listing">
+            <div class="listing-photo">
+              <div class="listing-heart">
+                <svg viewBox="0 0 24 24" stroke-width="2">
+                  <path
+                    d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8z"
+                  />
+                </svg>
+              </div>
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="#fff"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"
+                />
+              </svg>
+            </div>
+            <div class="listing-body">
+              <div class="listing-title">Werkstättenjacke, Gr. M</div>
+              <div class="listing-meta">
+                <span class="cond">Zustand: sehr gut &middot; Abt. IT</span>
+              </div>
+              <span class="listing-price">gratis</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- IDEE -->
+      <section id="idee">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Ausgangslage und Idee</h2>
+          </div>
+
+          <div class="idea-grid">
+            <div class="idea-col">
+              <h3>Ausgangssituation</h3>
+              <p>
+                Obwohl Gegenstände wie Werkstättenjacken oder Taschenrechner
+                nach dem Unterricht oft noch vollständig einsatzbereit sind,
+                werden sie danach meist nicht weiterverwendet. Wir erleben diese
+                Situation selbst und sehen darin einen echten Mehrwert für die
+                Schule, den wir mit diesem Projekt umsetzen wollen.
+              </p>
+            </div>
+            <div class="idea-col">
+              <h3>Unsere Lösung</h3>
+              <p>
+                Eine Plattform für die HTL Rennweg, über die Schüler:innen nicht
+                mehr benötigte, aber weiterhin brauchbare Unterrichtsgegenstände
+                einfach anbieten, finden und weitergeben können &mdash; statt
+                sie ungenutzt aufzubewahren oder wegzuwerfen.
+              </p>
+            </div>
+          </div>
+
+          <div class="why-list">
+            <div class="why-item">
+              <span class="radio-dot"></span>
+              <p>
+                <strong>Ressourcen schonen</strong>Gebrauchtes bleibt im Umlauf,
+                statt im Kasten zu verstauben.
+              </p>
+            </div>
+            <div class="why-item">
+              <span class="radio-dot"></span>
+              <p>
+                <strong>Kosten senken</strong>Schüler:innen sparen sich
+                Neuanschaffungen für Schulmaterial.
+              </p>
+            </div>
+            <div class="why-item">
+              <span class="radio-dot"></span>
+              <p>
+                <strong>Gemeinschaft stärken</strong>Eine zentrale,
+                unkomplizierte Anlaufstelle für die ganze Schule.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ZIELE -->
+      <section id="ziele" class="alt">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Was die Plattform können muss</h2>
+            <p>
+              Die Hauptziele sind fix im Projektumfang verankert, die optionalen
+              Ziele setzen wir um, wenn die Zeit reicht.
+            </p>
+          </div>
+
+          <div class="goal-group">
+            <div class="goal-label">Hauptziele</div>
+            <div class="box-grid">
+              <span class="box-chip active">Benutzerverwaltung</span>
+              <span class="box-chip active">Grundgerüst der Webseite</span>
+              <span class="box-chip active">Chat-Funktion</span>
+              <span class="box-chip active"
+                >Such-, Filter- &amp; Sortierfunktion</span
+              >
+              <span class="box-chip active"
+                >Inserate erstellen &amp; verwalten</span
+              >
+              <span class="box-chip active">Administrationsoberfläche</span>
+              <span class="box-chip active">Corporate Design &amp; Logo</span>
+              <span class="box-chip active">Profilbilder</span>
+              <span class="box-chip active">Hosting</span>
+              <span class="box-chip active">Usability-Tests</span>
+              <span class="box-chip active">Marketing</span>
+            </div>
+          </div>
+
+          <div class="goal-group">
+            <div class="goal-label">Optionale Ziele</div>
+            <div class="box-grid">
+              <span class="box-chip">Erweiterte Benutzereinstellungen</span>
+              <span class="box-chip">Progressive Web App</span>
+              <span class="box-chip">Suchagent mit Benachrichtigungen</span>
+              <span class="box-chip">Wunschlistenfunktion</span>
+              <span class="box-chip">Meldefunktion für Inserate</span>
+              <span class="box-chip">Meldereaktion der Administration</span>
+              <span class="box-chip">Automatische Prüfung von Inseraten</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- TEAM -->
+      <section id="team">
+        <div class="wrap">
+          <div class="section-head">
+            <h2>Das Team</h2>
+            <p>Vier Schüler:innen, vier Verantwortungsbereiche.</p>
+          </div>
+
+          <div class="team-grid">
+            <div class="team-card">
+              <div class="team-top">
+                <img src="chris.png" alt="Chris Jagschitz" class="avatar"/>
+                <div>
+                  <div class="team-name">Chris Jagschitz</div>
+                  <div class="team-role">Projektleiter</div>
+                </div>
+              </div>
+              <p class="team-focus">
+                Verbindet Front- und Backend, verantwortet die einheitliche
+                Designphilosophie und entwickelt die Markenidentität inklusive
+                Logo.
+              </p>
+              <div class="team-tasks">
+                <span>Such- &amp; Filterfunktion</span>
+                <span>Corporate Design</span>
+                <span>Marketing</span>
+                <span>Wunschliste</span>
+              </div>
+              <a class="team-mail" href="mailto:2138@htl.rennweg.at">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4 4h16v16H4z" />
+                  <path d="m22 6-10 7L2 6" />
+                </svg>
+                2138@htl.rennweg.at
+              </a>
+            </div>
+
+            <div class="team-card">
+              <div class="team-top">
+                <img src="linus.png" alt="Linus Bittner" class="avatar"/>
+                <div>
+                  <div class="team-name">Linus Bittner</div>
+                  <div class="team-role">Stv. Projektleiter</div>
+                </div>
+              </div>
+              <p class="team-focus">
+                Baut das Backend und verknüpft die Anwendungslogik mit der
+                Datenbereitstellung.
+              </p>
+              <div class="team-tasks">
+                <span>Benutzerverwaltung</span>
+                <span>Adminoberfläche</span>
+                <span>Hosting</span>
+                <span>PWA</span>
+              </div>
+              <a class="team-mail" href="mailto:2130@htl.rennweg.at">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4 4h16v16H4z" />
+                  <path d="m22 6-10 7L2 6" />
+                </svg>
+                2130@htl.rennweg.at
+              </a>
+            </div>
+
+            <div class="team-card">
+              <div class="team-top">
+                <img src="oliver.png" alt="Oliver Rinner" class="avatar"/>
+                <div>
+                  <div class="team-name">Oliver Rinner</div>
+                  <div class="team-role">Mitarbeiter</div>
+                </div>
+              </div>
+              <p class="team-focus">
+                Setzt das Frontend nach Styleguide um und sorgt für ein
+                responsives Design auf allen Geräten.
+              </p>
+              <div class="team-tasks">
+                <span>Chat-Funktion</span>
+                <span>Inserate verwalten</span>
+                <span>Benutzereinstellungen</span>
+              </div>
+              <a class="team-mail" href="mailto:2153@htl.rennweg.at">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4 4h16v16H4z" />
+                  <path d="m22 6-10 7L2 6" />
+                </svg>
+                2153@htl.rennweg.at
+              </a>
+            </div>
+
+            <div class="team-card">
+              <div class="team-top">
+                <img src="samuel.png" alt="Samuel Feistl" class="avatar"/>
+                <div>
+                  <div class="team-name">Samuel Feistl</div>
+                  <div class="team-role">Mitarbeiter</div>
+                </div>
+              </div>
+              <p class="team-focus">
+                Verantwortet Prototyping und die Designumsetzung im Frontend
+                unter Beachtung der Usability-Guidelines.
+              </p>
+              <div class="team-tasks">
+                <span>Grundgerüst</span>
+                <span>Profilbilder</span>
+                <span>Usability-Tests</span>
+                <span>Suchagent</span>
+              </div>
+              <a class="team-mail" href="mailto:2133@htl.rennweg.at">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M4 4h16v16H4z" />
+                  <path d="m22 6-10 7L2 6" />
+                </svg>
+                2133@htl.rennweg.at
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- KONTAKT -->
+      <section id="kontakt" class="contact">
+        <div class="wrap">
+          <div class="contact-card">
+            <div class="blob-layer" id="contactBlob"></div>
+            <div class="contact-inner">
+              <h2>Fragen zum Projekt?</h2>
+              <p>
+                Wir freuen uns über Rückmeldungen von Lehrer:innen,
+                Schüler:innen und allen, die 2Sprout testen möchten.
+              </p>
+              <a class="btn btn-white" href="mailto:2138@htl.rennweg.at"
+                >Team kontaktieren</a
+              >
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="wrap foot-row">
+        <span
+          >2Sprout &middot; HTL Rennweg &middot; Abteilungen IT &amp; ME</span
+        >
+        <span>Jagschitz &middot; Bittner &middot; Rinner &middot; Feistl</span>
+      </div>
+    </footer>
+
+    <script>
+      // inject blob backgrounds from template
+      const blobHTML = document.getElementById("blobSvg").innerHTML;
+      document.getElementById("heroBlob").innerHTML = blobHTML;
+      document.getElementById("contactBlob").innerHTML = blobHTML;
+
+      // theme toggle
+      const root = document.documentElement;
+      const toggle = document.getElementById("themeToggle");
+      const icon = document.getElementById("themeIcon");
+      const sun =
+        '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/>';
+      const moon =
+        '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+
+      function applyTheme(theme) {
+        root.setAttribute("data-theme", theme);
+        icon.innerHTML = theme === "dark" ? sun : moon;
+      }
+      applyTheme("light");
+
+      toggle.addEventListener("click", () => {
+        const next =
+          root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+        applyTheme(next);
+      });
+
+      // mobile nav
+      const burgerBtn = document.getElementById("burgerBtn");
+      burgerBtn.addEventListener("click", () => {
+        document.body.classList.toggle("nav-open");
+        const open = document.body.classList.contains("nav-open");
+        burgerBtn.setAttribute("aria-expanded", open);
+      });
+      document.querySelectorAll(".mobile-nav a").forEach((a) => {
+        a.addEventListener("click", () =>
+          document.body.classList.remove("nav-open"),
+        );
+      });
+    </script>
+  </body>
+</html>

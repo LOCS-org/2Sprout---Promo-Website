@@ -1,0 +1,17 @@
+<svg
+        viewBox="0 0 1000 560"
+        preserveAspectRatio="xMidYMid slice"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <rect width="1000" height="560" fill="#14532d" />
+        <circle cx="90" cy="70" r="250" fill="#BEF264" />
+        <circle cx="900" cy="40" r="280" fill="#166534" />
+        <polygon
+          points="520,-60 1080,180 760,640 380,300"
+          fill="#769E61"
+          opacity="0.9"
+        />
+        <circle cx="110" cy="560" r="230" fill="#0f3d24" />
+        <circle cx="890" cy="560" r="260" fill="#D9F99D" opacity="0.9" />
+        <circle cx="520" cy="520" r="150" fill="#4d7c4a" opacity="0.55" />
+      </svg>
